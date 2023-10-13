@@ -2,24 +2,29 @@ package com.iluwatar.facades;
 
 public class Converter {
         
-    public String name; 
-    public String type; 
-    Converter(String _name, String _type){
-            this.name=_name;
-            this.type=_type;
+    private VideoEncoder videoEncoder;
+    private AudioEncoder audioEncoder;
+    private VideoFormatConverter videoFormatConverter;
+    private AudioFormatConverter audioFormatConverter;
+  
+ public Converter(){
+    this.videoEncoder = new VideoEncoder();
+    this.audioEncoder = new AudioEncoder();
+    this.videoFormatConverter = new VideoFormatConverter();
+    this.audioFormatConverter = new AudioFormatConverter();
+    }
+   
+    public String convertVideo(String inputVideo, String outputVideoFormat) {
+        // Video dönüştürme işlemleri
+        String encodedVideo = videoEncoder.encode(inputVideo);
+        String convertedVideo = videoFormatConverter.convert(encodedVideo, outputVideoFormat);
+        return convertedVideo;
     }
 
-    public String getName() {
-        
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getType() {
-        return type;
-    }
-    public void setType(String type) {
-        this.type = type;
+    public String convertAudio(String inputAudio, String outputAudioFormat) {
+        // Ses dönüştürme işlemleri
+        String encodedAudio = audioEncoder.encode(inputAudio);
+        String convertedAudio = audioFormatConverter.convert(encodedAudio, outputAudioFormat);
+        return convertedAudio;
     }
 }
